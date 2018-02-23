@@ -101,8 +101,8 @@ Each of Whitespace instructions has certain **prefixes**, which specify the func
 | \[s\]      | Stack manipulation |
 | \[t\]\[s\] | Arithmetic         |
 | \[t\]\[t\] | Heap access        |
-| \[e\]      | Flow control       |
-| \[t\]\[e\] | I/O                |
+| \[n\]      | Flow control       |
+| \[t\]\[n\] | I/O                |
 
 As you can see, any of the prefixes is not a prefix to the others, which means the interpreter won't misunderstand your instructions.
 
@@ -117,11 +117,11 @@ Whitespace stack stores parameters and results. Data is merely **integral**. The
 | Manipulator | Operand | Function                                                   |
 | ----------- | ------- | ---------------------------------------------------------- |
 | \[s]        | Number  | Push a number onto stack                                   |
-| \[e]\[s]    | -       | Duplicate the top of stack                                 |
+| \[n]\[s]    | -       | Duplicate the top of stack                                 |
 | \[t]\[s]    | Number  | Duplicate the Nth (given by the operand) data onto the top |
-| \[e]\[t]    | -       | Swap the top two data on stack                             |
-| \[e]\[e]    | -       | Pop the number on the top of stack                         |
-| \[t]\[e]    | Number  | Slide N (given by the operand) data off the stack          |
+| \[n]\[t]    | -       | Swap the top two data on stack                             |
+| \[n]\[n]    | -       | Pop the number on the top of stack                         |
+| \[t]\[n]    | Number  | Slide N (given by the operand) data off the stack          |
 
 #### \[t]\[s] : Arithmetic
 
@@ -133,7 +133,7 @@ An arithmetic instruction pop stack to give the right operand, and then pop stac
 | ----------- | ------- | -------- |
 | \[s]\[s]    | -       | Add      |
 | \[s]\[t]    | -       | Subtract |
-| \[s]\[e]    | -       | Multiply |
+| \[s]\[n]    | -       | Multiply |
 | \[t]\[s]    | -       | Divide   |
 | \[t]\[t]    | -       | Modulo   |
 
