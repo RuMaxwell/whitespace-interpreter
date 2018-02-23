@@ -123,7 +123,7 @@ Whitespace stack stores parameters and results. Data is merely **integral**. The
 | \[e]\[e]    | -       | Pop the number on the top of stack                         |
 | \[t]\[e]    | Number  | Slide N (given by the operand) data off the stack          |
 
-####\[t]\[s] : Arithmetic
+#### \[t]\[s] : Arithmetic
 
 Whitespace does not have floating calculations, but *the digit of integral numbers is unlimited*.
 
