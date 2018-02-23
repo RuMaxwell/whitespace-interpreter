@@ -80,7 +80,7 @@ UR cheated :P
 
 The script above is actually a function that calculate [*factorial*](https://en.wikipedia.org/wiki/Factorial). The program requires an input of number, and than calculate and output the factorial.
 
-![](after the interpreter's realization, result of factorial in console here)
+![after the interpreter's realization, result of factorial in console here]()
 
 
 
@@ -108,9 +108,17 @@ As you can see, any of the prefixes is not a prefix to the others, which means t
 
 
 
-For each prefix, there are a series of manipulators to perform certain functions. They are listed as following:
+For each prefix, there are a series of **manipulators** to perform certain functions. Some manipulators require an operand while others don't. An **operand** is an integer (either signed or unsigned). It is given along with the instruction. The method to write an operand is introduced as following:
 
-#### [s] : Stack manipulation
+1. Integers are represented in binary. \[s] represent 0, \[t] represent 1.
+2. Sign. Only operands of flow control instructions are unsigned integers. The others are signed. The sign is represented by the first binary digit, for which \[s] represent positive (+), \[t] represent negative (-).
+3. An operand must end with a \[n].
+
+For example, signed integer $+5 = (+101)_2$ is represented as `[s][t][s][t][n]`. Signed integer $-12=(-1100)_2$ is represented as `[t][t][t][s][s]`. Unsigned integer $255=(11111111)_2$ is represented as `[t][t][t][t][t][t][t][t]`.
+
+The manipulators are listed as following:
+
+#### \[s] : Stack manipulation
 
 Whitespace stack stores parameters and results. Data is merely **integral**. The size of stack is unlimited.
 
@@ -150,7 +158,34 @@ Before retrieving, push the heap address. When retrieving, stack will be popped 
 | \[s]        | -       | Store    |
 | \[t]        | -       | Retrieve |
 
+#### \[n] : Flow control
 
+Whitespace's flow control use **labels** (iow. tags), to mark locations for jumping (like `goto` in C/C++). The label is an **unsigned** integer with no limitation of value. Labels should not conflict with (i. e. repeat) each other, as there is only a global namespace.
+
+| Manipulator | Operand | Function                                                     |
+| ----------- | ------- | ------------------------------------------------------------ |
+| \[s]\[s]    | Label   | Mark a location in the program                               |
+| \[s]\[t]    | Label   | Call the subroutine at the marked location                   |
+| \[s]\[n]    | Label   | Jump to the label unconditionally                            |
+| \[t]\[s]    | Label   | Jump to the label if stack top is 0 (0x0)                    |
+| \[t]\[t]    | Label   | Jump to the label if stack top is negative                   |
+| \[t]\[n]    | -       | End the subroutine and return to where the subroutine was called |
+| \[n]\[n]    | -       | End the program                                              |
+
+***Attention: When using instructions \[n]\[t]\[s] (jump if 0) and \[n]\[t]\[t] (jump if <0), stack will pop the top to compare with 0. In order to keep the original stack top, you should first duplicate it (\[s]\[n]\[s]).***
+
+#### \[t]\[n] : I/O control
+
+| Manipulator | Operand | Function                                                     |
+| ----------- | ------- | ------------------------------------------------------------ |
+| \[s]\[s]    | -       | Pop the stack top and output it as a character               |
+| \[s]\[t]    | -       | Pop the stack top and output it as a number                  |
+| \[t]\[s]    | -       | Read a character (end with '\n') from input and store it to the heap addressed by stack top *(which will be popped)* |
+| \[t]\[t]    | -       | Read a number from input and store it to the heap addressed by stack top *(which will be popped)* |
+
+
+
+The program in the beginning, as said before, calculates factorial.
 
 
 
