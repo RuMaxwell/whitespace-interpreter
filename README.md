@@ -9,7 +9,7 @@ Python project of an interpreter for Whitespace (programming language)
 
 ### General
 
-Following:
+***IMPORTANT:*** Following:
 
     [s] = Space (' ' or chr(32))
     [t] = Tab ('\t' or chr(9))
