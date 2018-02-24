@@ -185,7 +185,9 @@ Whitespace's flow control use **labels** (iow. tags), to mark locations for jump
 
 
 
-The program in the beginning, as said before, calculates factorial.
+The program in the beginning, as said before, calculates factorial. The program starts with accepting an input of number, for example 6. Then it generates numbers that are less than the input, while not less than 0, which are 5, 4, 3, 2, 1, 0 in this case. At last, it calculate the multiplication of all those numbers, from 1 to the input, and the factorial is at the stack top, which then is outputted to the screen. 
+
+The actual source code is provided in file "factorial.whitespace". For comments about how it works, check file "factorial.comment". For exact description of each instruction, you can copy the source code into Whitespace Interpreter, and use step option (`--step, -s`).
 
 
 
