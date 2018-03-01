@@ -17,6 +17,13 @@ main_heaps = Heaps()
 test_code_1 = 'push-1   \t\noutput-number\t\n \tend-program\n\n\n'
 test_code_2 = '  \t \n  \t\t\n\t\n \t\n\n\n'
 
+version = '0.0.1'
+
+
+def show_version():
+    global version
+    print('Whitespace Interpreter, version ' + version)
+
 
 def check_argv():
     """
@@ -24,29 +31,34 @@ def check_argv():
     """
     if len(argv) >= 2:
         source_filename = argv[-1]
-        with open(source_filename, 'r') as read_file:
-            source_code = read_file.readlines()
-            source_code = ''.join(source_code)
-            if len(argv) == 2:
-                run(source_code)  # run
-            else:
-                if argv[1] in ['--run', '-r']:
+        try:
+            with open(source_filename, 'r') as read_file:
+                source_code = read_file.readlines()
+                source_code = ''.join(source_code)
+                if len(argv) == 2:
                     run(source_code)  # run
-                elif argv[1] in ['--show-steps', '-s']:
-                    show_steps(source_code)  # show steps
-                elif argv[1] == ['--step', '-p']:
-                    step(source_code)  # step
-                elif argv[1] == ['--debug', '-d']:
-                    debug(source_code)  # debug
-                elif argv[1] == ['--tutorial', '-t']:
-                    usage_help()  # tutorial
-                elif argv[1] == ['--help', '-h']:
-                    interpret_help()  # help
                 else:
-                    print('Unknown option.')
-                    interpret_help()
+                    if argv[1] in ['--run', '-r']:
+                        run(source_code)  # run
+                    elif argv[1] in ['--show-steps', '-s']:
+                        show_steps(source_code)  # show steps
+                    elif argv[1] in ['--step', '-p']:
+                        step(source_code)  # step
+                    elif argv[1] in ['--debug', '-d']:
+                        debug(source_code)  # debug
+                    elif argv[1] in ['--version', '-v']:
+                        show_version()  # version
+                    elif argv[1] in ['--tutorial', '-t']:
+                        usage_help()  # tutorial
+                    elif argv[1] in ['--help', '-h']:
+                        interpret_help()  # help
+                    else:
+                        print('Unknown option.')
+                        interpret_help()
+        except FileNotFoundError:
+            print('Fatal error: file ' + source_filename + ' not found')
     else:
-        pass
+        print('Fatal error: no input file')
 
 
 def main():
