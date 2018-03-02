@@ -215,6 +215,7 @@ def split_insts(ws_source: str):
                         line += 1
                         line += 1  # An operand should end with a '\n'
                 elif ws_source[read] == '\t':
+                    read += 1
                     if ws_source[read] == ' ':
                         # 21 Jump to the label if stack top is 0 [n][t][s]
                         read, inst_ed = read_wth_oprd(21, ws_source, inst_bg, read, insts,
